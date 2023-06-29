@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+</body>
+<script type="text/babel">
+    class OpacityText extends React.Component{
+        state={opacity:1}
+        death=()=>{
+            ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+        }
+        componentDidMount(){
+            this.timer=setInterval(()=>{
+                let {opacity}=this.state
+                opacity=opacity - 0.1
+                if(opacity <=0) opacity=1
+                this.setState({opacity})
+            },200)
+        }
+        componentWillUnmount(){
+            clearInterval(this.timer)
+        }
+        render(){
+            return (
+                <div>
+                    <p style={{'opacity':this.state.opacity}}>变透明</p>
+                    <button onClick={this.death}>销毁</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<OpacityText/>,document.getElementById('test'))
+</script>
+
+</html>

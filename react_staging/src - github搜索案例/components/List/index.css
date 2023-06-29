@@ -1,0 +1,17 @@
+.items{
+    width: 340px;
+    height: 600px;
+    border: 1px solid aqua;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+.item{
+    width: 100px;
+    text-align: center;
+}
+.item img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}

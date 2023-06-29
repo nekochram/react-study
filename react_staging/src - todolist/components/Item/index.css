@@ -1,0 +1,15 @@
+.item-container{
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+.del-btn{
+    margin-left: auto;
+    display: none;
+}
+.item-container:hover{
+    background-color: aqua;
+}
+.item-container:hover > .del-btn{
+    display: inline-block;
+}

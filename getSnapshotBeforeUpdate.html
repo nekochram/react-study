@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+</body>
+<script type="text/babel">
+    class NewsList extends React.Component{
+        state={
+            list:[]
+        }
+        componentDidMount(){
+            this.timer=setInterval(()=>{
+                let {list:newsList}=this.state
+                let newData='新闻' + (newsList.length + 1)
+                this.setState({
+                    list:[newData,...newsList]
+                })
+            },1000)
+        }
+        getSnapshotBeforeUpdate(){
+            let scrollHeight=this.newsList.scrollHeight
+            return scrollHeight
+        }
+        componentDidUpdate(prePros,preState,snapshot){
+            this.newsList.scrollTop += this.newsList.scrollHeight - snapshot
+        }
+        render(){
+            return (
+                <div className="container" ref={currentNode=>this.newsList=currentNode}>
+                    {
+                        this.state.list.map((item,index)=><div className="news" key={index}>{item}</div>)
+                    }
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<NewsList/>,document.getElementById('test'))
+</script>
+<style>
+    .container{
+        width: 200px;
+        height: 150px;
+        overflow-y: auto;
+        background-color: aqua;
+    }
+    .news{
+        width: 100px;
+        height: 30px;
+    }
+</style>
+</html>
